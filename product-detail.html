@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk - ReLoop Malang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: #333;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+            border-radius: 50%;
+        }
+
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+        }
+
+        /* Product Images Section */
+        .product-images {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            background: #f0f0f0;
+            cursor: zoom-in;
+        }
+
+        .image-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: #fafafa;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #2b8fd9;
+            transform: scale(1.05);
+        }
+
+        .image-counter {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Product Info */
+        .product-info {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2b8fd9;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .tag-icon {
+            font-size: 1rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 1.5rem 0;
+        }
+
+        /* Description */
+        .description-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .description-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .description-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .desc-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .desc-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.25rem;
+        }
+
+        .desc-value {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        /* Meet-up Section */
+        .meetup-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .location-icon {
+            font-size: 1.5rem;
+            color: #2b8fd9;
+        }
+
+        .location-text {
+            flex: 1;
+        }
+
+        .location-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .location-address {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Seller Card */
+        .seller-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 5.5rem;
+        }
+
+        .seller-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .seller-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2b8fd9, #1a73b8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .seller-info {
+            flex: 1;
+        }
+
+        .seller-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .seller-status {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .rating-placeholder {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-chat {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-chat:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-offer {
+            background: white;
+            color: #2b8fd9;
+            border: 2px solid #2b8fd9;
+        }
+
+        .btn-offer:hover {
+            background: #f0f8ff;
+        }
+
+        .offer-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .offer-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .offer-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .offer-input:focus {
+            border-color: #2b8fd9;
+        }
+
+        .btn-send-offer {
+            background: #2b8fd9;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-send-offer:hover {
+            background: #1a73b8;
+        }
+
+        .offer-hint {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        /* Share & Wishlist */
+        .secondary-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 0.75rem;
+            background: #f0f0f0;
+            color: #555;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .seller-card {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 12px 12px 0 0;
+                box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+                z-index: 90;
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+            .main-image {
+                height: 300px;
+            }
+
+            #seller-mobile {
+                display: block !important;
+                margin-bottom: 80px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-container">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="header-title">Detail Produk</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Column: Product Details -->
+        <div>
+            <!-- Product Images -->
+            <div class="product-images">
+                <div class="image-container">
+                    <img id="main-image" class="main-image" src="https://via.placeholder.com/800x500/4a90e2/ffffff?text=Loading..." alt="Product">
+                    <div class="image-counter">1 / 5</div>
+                </div>
+                <div class="image-thumbnails" id="thumbnails-container">
+                    <!-- Thumbnails will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1 class="product-title">Loading...</h1>
+                <div class="product-price">Rp 0</div>
+                
+                <div class="product-tags" id="product-tags">
+                    <!-- Tags will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="description-section">
+                <h2 class="section-title">Deskripsi</h2>
+                <p class="description-text" id="product-description">
+                    Loading...
+                </p>
+                
+                <div class="divider"></div>
+                
+                <div class="description-grid">
+                    <div class="desc-item">
+                        <div class="desc-label">Kategori</div>
+                        <div class="desc-value" id="product-category">-</div>
+                    </div>
+                    <div class="desc-item">
+                        <div class="desc-label">Kondisi</div>
+                        <div class="desc-value" id="product-condition">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meet-up Location -->
+            <div class="meetup-section">
+                <h2 class="section-title">Lokasi Meet-up</h2>
+                <div class="location-info">
+                    <div class="location-icon">📍</div>
+                    <div class="location-text">
+                        <div class="location-name" id="location-name">Loading...</div>
+                        <div class="location-address" id="location-address">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seller Info Mobile Only -->
+            <div class="meetup-section" style="display: none;" id="seller-mobile">
+                <h2 class="section-title">Penjual</h2>
+                <div class="seller-header">
+                    <div class="seller-avatar" id="seller-avatar-mobile">👤</div>
+                    <div class="seller-info">
+                        <div class="seller-name" id="seller-name-mobile">Loading...</div>
+                        <div class="rating-placeholder">Belum ada rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Seller Card -->
+        <div class="seller-card">
+            <div class="seller-header">
+                <div class="seller-avatar" id="seller-avatar">👤</div>
+                <div class="seller-info">
+                    <div class="seller-name" id="seller-name">Loading...</div>
+                    <div class="seller-status" id="seller-username">@loading</div>
+                    <div class="rating-placeholder">Belum ada rating</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-chat" onclick="openChat()">
+                    💬 Chat
+                </button>
+                <button class="btn btn-offer" onclick="toggleOffer()">
+                    💰 Buat Penawaran
+                </button>
+            </div>
+
+            <!-- Offer Section -->
+            <div id="offer-section" class="offer-section hidden">
+                <div class="section-title">Ajukan Harga</div>
+                <div class="offer-input-group">
+                    <input type="text" class="offer-input" id="offer-price" placeholder="Rp 0" value="Rp 0">
+                    <button class="btn-send-offer" onclick="sendOffer()">Kirim</button>
+                </div>
+                <div class="offer-hint">Penjual akan menerima notifikasi penawaran Anda</div>
+            </div>
+
+            <div class="secondary-actions">
+                <button class="btn-secondary" onclick="shareProduct()">
+                    🔗 Bagikan
+                </button>
+                <button class="btn-secondary" onclick="toggleWishlist()">
+                    ❤️ Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Debug logging
+        console.log('Product detail page loaded');
+        console.log('SessionStorage:', sessionStorage.getItem('currentProduct'));
+        
+        // Load product data from sessionStorage
+        let productData = null;
+        
+        // Try to load from sessionStorage
+        const storedProduct = sessionStorage.getItem('currentProduct');
+        if (storedProduct) {
+            try {
+                productData = JSON.parse(storedProduct);
+                console.log('Product data loaded:', productData);
+            } catch (error) {
+                console.error('Error parsing product data:', error);
+            }
+        }
+        
+        // Fallback: sample data for testing
+        if (!productData) {
+            console.warn('No product data in sessionStorage, using fallback');
+            productData = {
+                id: 1,
+                title: "Laptop Dell Latitude E7440 Core i5 RAM 8GB SSD 256GB",
+                price: 3500000,
+                condition: "Kondisi Baik",
+                category: "gadget",
+                kecamatan: "Lowokwaru",
+                kelurahan: "Sumbersari",
+                whatsapp: "6281234567890",
+                image: "https://via.placeholder.com/800x500/4a90e2/ffffff?text=Laptop+Dell",
+                description: "Laptop Dell Latitude E7440 dalam kondisi baik dan terawat. Cocok untuk mahasiswa dan pekerjaan sehari-hari. Sudah upgrade SSD sehingga sangat responsif. Baterai masih bagus, bisa 3-4 jam pemakaian normal.",
+                images: [
+                    "https://via.placeholder.com/800x500/4a90e2/ffffff?text=Laptop+Dell",
+                    "https://via.placeholder.com/800x500/e74c3c/ffffff?text=Front+View",
+                    "https://via.placeholder.com/800x500/2ecc71/ffffff?text=Side+View",
+                    "https://via.placeholder.com/800x500/9b59b6/ffffff?text=Keyboard",
+                    "https://via.placeholder.com/800x500/f39c12/ffffff?text=Ports"
+                ],
+                seller: {
+                    id: "seller_1",
+                    name: "Penjual Sumbersari",
+                    username: "seller123",
+                    avatar: "👤"
+                }
+            };
+        }
+
+        // Format price to Rupiah
+        function formatPrice(price) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(price);
+        }
+
+        // Initialize page with product data
+        function initProductPage() {
+            console.log('Initializing product page...');
+            
+            if (!productData) {
+                console.error('Product data is null!');
+                alert('Produk tidak ditemukan');
+                window.history.back();
+                return;
+            }
+            
+            console.log('Populating page with:', productData.title);
+            
+            // Set product title
+            document.querySelector('.product-title').textContent = productData.title;
+            
+            // Set price
+            document.querySelector('.product-price').textContent = formatPrice(productData.price);
+            
+            // Set main image
+            const mainImage = document.getElementById('main-image');
+            if (productData.images && productData.images.length > 0) {
+                mainImage.src = productData.images[0];
+                mainImage.alt = productData.title;
+            } else {
+                mainImage.src = productData.image;
+                mainImage.alt = productData.title;
+            }
+            
+            // Set thumbnails
+            const thumbnailsContainer = document.getElementById('thumbnails-container');
+            if (productData.images && productData.images.length > 1) {
+                thumbnailsContainer.innerHTML = productData.images.map((img, index) => 
+                    `<img class="thumbnail ${index === 0 ? 'active' : ''}" 
+                          src="${img}" 
+                          alt="Image ${index + 1}"
+                          onclick="changeImage(${index})">`
+                ).join('');
+            } else {
+                thumbnailsContainer.innerHTML = `<img class="thumbnail active" src="${productData.image}" alt="Product Image">`;
+            }
+            
+            // Update image counter
+            const imageCount = productData.images ? productData.images.length : 1;
+            document.querySelector('.image-counter').textContent = `1 / ${imageCount}`;
+            
+            // Set tags
+            const tagsHtml = `
+                <div class="tag">
+                    <span class="tag-icon">📦</span>
+                    <span>${productData.condition || 'Kondisi Baik'}</span>
+                </div>
+                <div class="tag">
+                    <span class="tag-icon">🤝</span>
+                    <span>Meetup</span>
+                </div>
+                <div class="tag">
+                    <span class="tag-icon">📍</span>
+                    <span>${productData.kelurahan}, ${productData.kecamatan}</span>
+                </div>
+            `;
+            document.getElementById('product-tags').innerHTML = tagsHtml;
+            
+            // Set description
+            const descText = document.getElementById('product-description');
+            if (productData.description) {
+                descText.textContent = productData.description;
+            } else {
+                descText.textContent = `${productData.title} dalam kondisi ${productData.condition.toLowerCase()}. Lokasi: ${productData.kelurahan}, ${productData.kecamatan}.`;
+            }
+            
+            // Set location
+            document.getElementById('location-name').textContent = `Kampus Area ${productData.kelurahan}`;
+            document.getElementById('location-address').textContent = 
+                `${productData.kelurahan}, ${productData.kecamatan}, Kota Malang`;
+            
+            // Set seller info
+            if (productData.seller) {
+                document.getElementById('seller-name').textContent = productData.seller.name;
+                document.getElementById('seller-username').textContent = `@${productData.seller.username}`;
+                document.getElementById('seller-avatar').textContent = productData.seller.avatar || '👤';
+                
+                // Mobile seller info
+                document.getElementById('seller-name-mobile').textContent = productData.seller.name;
+                document.getElementById('seller-avatar-mobile').textContent = productData.seller.avatar || '👤';
+            }
+            
+            // Set category
+            const categoryMap = {
+                'gadget': 'Gadget & Elektronik',
+                'kendaraan': 'Kendaraan',
+                'perabotan': 'Perabotan',
+                'fashion': 'Fashion',
+                'hobi': 'Hobi & Olahraga',
+                'buku': 'Buku & Media'
+            };
+            document.getElementById('product-category').textContent = categoryMap[productData.category] || 'Lainnya';
+            document.getElementById('product-condition').textContent = productData.condition || 'Kondisi Baik';
+            
+            // Set offer price placeholder
+            const offerInput = document.getElementById('offer-price');
+            if (offerInput && productData.price) {
+                const suggestedOffer = Math.floor(productData.price * 0.85); // 85% dari harga asli
+                offerInput.value = formatPrice(suggestedOffer);
+            }
+            
+            console.log('Page initialized successfully!');
+        }
+
+        let currentImageIndex = 0;
+
+        // Change main image
+        function changeImage(index) {
+            if (!productData.images || !productData.images[index]) return;
+            
+            currentImageIndex = index;
+            document.getElementById('main-image').src = productData.images[index];
+            document.querySelector('.image-counter').textContent = `${index + 1} / ${productData.images.length}`;
+            
+            // Update thumbnail active state
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+
+        // Toggle offer section
+        function toggleOffer() {
+            const offerSection = document.getElementById('offer-section');
+            offerSection.classList.toggle('hidden');
+            
+            if (!offerSection.classList.contains('hidden')) {
+                document.getElementById('offer-price').focus();
+            }
+        }
+
+        // Send offer
+        function sendOffer() {
+            const offerPrice = document.getElementById('offer-price').value;
+            
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Silakan login terlebih dahulu untuk membuat penawaran');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            console.log('Sending offer:', offerPrice);
+            alert(`Penawaran ${offerPrice} telah dikirim ke penjual!`);
+            
+            // Open chat after sending offer
+            setTimeout(() => {
+                openChat();
+            }, 500);
+        }
+
+        // Open chat
+        function openChat() {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Silakan login terlebih dahulu untuk chat dengan penjual');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Open chat with seller
+            if (window.ChatSystem && productData && productData.seller) {
+                window.ChatSystem.openChat(productData, productData.seller.id, productData.seller.name);
+            } else {
+                console.error('Chat system not loaded or seller data missing');
+                alert('Fitur chat sedang dimuat, silakan coba lagi');
+            }
+        }
+
+        // Share product
+        function shareProduct() {
+            if (navigator.share) {
+                navigator.share({
+                    title: productData.title,
+                    text: `Check out this product on ReLoop Malang: ${productData.title}`,
+                    url: window.location.href
+                }).then(() => {
+                    console.log('Shared successfully');
+                }).catch(err => {
+                    console.error('Share failed:', err);
+                    fallbackShare();
+                });
+            } else {
+                fallbackShare();
+            }
+        }
+
+        function fallbackShare() {
+            // Copy link to clipboard
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link produk telah disalin ke clipboard!');
+        }
+
+        // Toggle wishlist
+        function toggleWishlist() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Silakan login terlebih dahulu untuk menyimpan produk');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            alert('Produk ditambahkan ke Wishlist!');
+        }
+
+        // Go back
+        function goBack() {
+            window.history.back();
+        }
+
+        // Format price input
+        const offerPriceInput = document.getElementById('offer-price');
+        if (offerPriceInput) {
+            offerPriceInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^0-9]/g, '');
+                if (value) {
+                    value = parseInt(value).toLocaleString('id-ID');
+                    e.target.value = 'Rp ' + value;
+                }
+            });
+        }
+
+        // Check if mobile for seller card
+        function checkMobile() {
+            if (window.innerWidth <= 968) {
+                document.getElementById('seller-mobile').style.display = 'block';
+            } else {
+                document.getElementById('seller-mobile').style.display = 'none';
+            }
+        }
+
+        window.addEventListener('resize', checkMobile);
+        checkMobile();
+        
+        // Initialize page on load
+        console.log('Calling initProductPage...');
+        initProductPage();
+    </script>
+</body>
+</html>

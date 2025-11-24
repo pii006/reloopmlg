@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReLoop Malang - Marketplace Barang Bekas Mahasiswa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-addon.css"> 
+    <link rel="stylesheet" href="chat-system.css">
+    <style>
+        /* Hero Banner Styles */
+        .hero-banner {
+            background: linear-gradient(135deg, #2b8fd9 0%, #1a73b8 100%);
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center no-repeat;
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-hero-primary {
+            background: white;
+            color: #2b8fd9;
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-emoji {
+            font-size: 10rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            background: white;
+            padding: 1.5rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trust-icon {
+            font-size: 2.5rem;
+        }
+
+        .trust-title {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .trust-desc {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Promo Banner (between categories and products) */
+        .promo-banner {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            padding: 2rem 1rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner::before {
+            content: '🔥';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.1;
+            top: -50%;
+            right: -5%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .promo-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .promo-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .promo-desc {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .promo-timer {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Featured Products Section */
+        .featured-section {
+            margin: 3rem 0;
+        }
+
+        .featured-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-badge {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Boosted Product Card */
+        .product-card.boosted {
+            border: 2px solid #ffd700;
+            background: linear-gradient(to bottom, #fffef5 0%, white 100%);
+            position: relative;
+        }
+
+        .product-card.boosted::before {
+            content: '🔥 BOOSTED';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 10;
+        }
+
+        .product-card.featured {
+            border: 2px solid #2b8fd9;
+            background: linear-gradient(to bottom, #f0f8ff 0%, white 100%);
+        }
+
+        .product-card.featured::before {
+            content: '⭐ FEATURED';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: linear-gradient(135deg, #2b8fd9 0%, #1a73b8 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 10;
+        }
+
+        /* Ad Slot */
+        .ad-slot {
+            background: #f8f9fa;
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .ad-slot-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-slot-desc {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Boost CTA Card */
+        .boost-cta-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .boost-cta-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .boost-cta-desc {
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .boost-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .boost-benefit {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .boost-benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .boost-benefit-text {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-emoji {
+                font-size: 6rem;
+            }
+
+            .promo-title {
+                font-size: 1.5rem;
+            }
+
+            .trust-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <a href="#" class="top-bar-link">Promo</a>
+            <a href="#" class="top-bar-link">Tentang</a>
+            <a href="#" class="top-bar-link">FAQ</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <img src="assets/logo reloop.png" alt="ReLoop Malang" class="logo-image">
+            </a>
+
+            <div class="location-selector">
+                <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                <span class="location-text">Malang Kota</span>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Temukan Kendaraan, Handphone, dan lainnya...">
+                
+                <button class="search-btn" id="searchBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="header-actions">
+                <a href="#" class="login-btn" id="auth-link">Login/Daftar</a>
+                <a href="#" class="login-btn hidden" id="logout-link">Logout</a>
+                <button class="sell-btn" onclick="goToJualPage()" style="background: #2b8fd9; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; border: none; font-weight: 600; cursor: pointer;">+ Jual</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Kasih Napas Kedua ke Barangmu! 🔄</h1>
+                <p class="hero-subtitle">Marketplace barang bekas berkualitas dari mahasiswa untuk mahasiswa. Jual & beli dengan mudah, aman, dan terpercaya.</p>
+                <div class="hero-cta">
+                    <button class="btn-hero btn-hero-primary" onclick="goToJualPage()">Mulai Jual Sekarang</button>
+                    <a href="#produk-populer" class="btn-hero btn-hero-secondary">Lihat Produk</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-emoji">♻️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-badges">
+        <div class="trust-container">
+            <div class="trust-item">
+                <div class="trust-icon">🔄</div>
+                <div class="trust-title">Barang Bekas Berkualitas</div>
+                <div class="trust-desc">Semua produk terverifikasi</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔒</div>
+                <div class="trust-title">Transaksi Aman</div>
+                <div class="trust-desc">COD & chat di platform</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🚚</div>
+                <div class="trust-title">Meetup Area Malang</div>
+                <div class="trust-desc">Lokasi strategis</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">💬</div>
+                <div class="trust-title">Support 24/7</div>
+                <div class="trust-desc">Siap membantu kamu</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal (sama seperti sebelumnya) -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="auth-modal-title">Login</h2>
+            <div id="auth-message" class="message-box"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-phoneNumber">Nomor HP / Email</label>
+                    <input type="text" id="login-phoneNumber" placeholder="08xxxxxxxxxx atau email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn-submit">Login</button>
+                <div class="toggle-form">
+                    Belum punya akun? <span class="toggle-form-link" data-form="register">Daftar di sini</span>
+                </div>
+            </form>
+
+            <form id="register-form" class="hidden">
+                <div class="form-group">
+                    <label for="register-name">Nama Lengkap</label>
+                    <input type="text" id="register-name" placeholder="Nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-phoneNumber">Nomor HP (untuk OTP)</label>
+                    <input type="tel" id="register-phoneNumber" placeholder="08xxxxxxxxxx" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Password minimal 6 karakter" required>
+                </div>
+                <button type="submit" class="btn-submit">Daftar</button>
+                
+                <div id="otp-section" class="hidden otp-section">
+                    <div class="otp-info">
+                        <p>📱 OTP akan dikirim via SMS/WhatsApp ke nomor yang kamu daftarkan</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="otp-code">Kode OTP (6 digit)</label>
+                        <input type="text" id="otp-code" placeholder="123456" maxlength="6" required>
+                    </div>
+                    <button type="button" id="verify-otp-btn" class="btn-submit">Verifikasi OTP</button>
+                </div>
+                
+                <div class="toggle-form">
+                    Sudah punya akun? <span class="toggle-form-link" data-form="login">Login di sini</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="categories-container">
+            <div class="categories-grid">
+                <a href="#" class="category-item" data-category="semua">
+                    <div class="category-icon">📦</div>
+                    <div class="category-name">Semua</div>
+                </a>
+                <a href="#" class="category-item" data-category="gadget">
+                    <div class="category-icon">📱</div>
+                    <div class="category-name">Gadget</div>
+                </a>
+                <a href="#" class="category-item" data-category="kendaraan">
+                    <div class="category-icon">🚗</div>
+                    <div class="category-name">Kendaraan</div>
+                </a>
+                <a href="#" class="category-item" data-category="perabotan">
+                    <div class="category-icon">🏠</div>
+                    <div class="category-name">Perabotan</div>
+                </a>
+                <a href="#" class="category-item" data-category="fashion">
+                    <div class="category-icon">👕</div>
+                    <div class="category-name">Fashion</div>
+                </a>
+                <a href="#" class="category-item" data-category="hobi">
+                    <div class="category-icon">⚽</div>
+                    <div class="category-name">Hobi</div>
+                </a>
+                <a href="#" class="category-item" data-category="buku">
+                    <div class="category-icon">📚</div>
+                    <div class="category-name">Buku</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Filter -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-title">Filter Lokasi:</div>
+            <select id="filter-kecamatan" class="filter-select">
+                <option value="">Semua Kecamatan</option>
+            </select>
+            <select id="filter-kelurahan" class="filter-select" disabled>
+                <option value="">Semua Kelurahan</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Promo Banner (Event-based) -->
+    <section class="promo-banner">
+        <div class="promo-content">
+            <div class="promo-timer">⏰ Berakhir dalam: 2 hari 5 jam</div>
+            <h2 class="promo-title">🎉 Flash Sale Weekend!</h2>
+            <p class="promo-desc">Boost listing GRATIS untuk 10 penjual pertama hari ini!</p>
+            <button class="btn-hero btn-hero-primary" onclick="goToJualPage()">Claim Promo Sekarang</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Featured Products Section -->
+        <section class="featured-section" id="produk-populer">
+            <div class="featured-header">
+                <h2 class="featured-title">
+                    ⭐ Featured Today
+                    <span class="featured-badge">HOT</span>
+                </h2>
+            </div>
+            <div class="results-info" id="resultsInfo"></div>
+            <div class="products-grid" id="productsGrid"></div>
+        </section>
+
+        <!-- Boost CTA Card -->
+        <section class="boost-cta-card">
+            <h3 class="boost-cta-title">🚀 Ingin Produkmu Cepat Laku?</h3>
+            <p class="boost-cta-desc">Boost listing kamu dan dapatkan hingga 3× lebih banyak pembeli!</p>
+            <div class="boost-benefits">
+                <div class="boost-benefit">
+                    <div class="boost-benefit-icon">👀</div>
+                    <div class="boost-benefit-text">+300% Views</div>
+                </div>
+                <div class="boost-benefit">
+                    <div class="boost-benefit-icon">⚡</div>
+                    <div class="boost-benefit-text">Tampil di Atas</div>
+                </div>
+                <div class="boost-benefit">
+                    <div class="boost-benefit-icon">🔥</div>
+                    <div class="boost-benefit-text">Badge Khusus</div>
+                </div>
+            </div>
+            <button class="btn-hero btn-hero-primary" onclick="goToJualPage()">Mulai Boost - Rp 3.000/hari</button>
+        </section>
+
+        <!-- Ad Slot (untuk UMKM / Brand) -->
+        <section class="ad-slot">
+            <div class="ad-slot-title">📢 Ruang Iklan Tersedia</div>
+            <div class="ad-slot-desc">Promosikan bisnis Anda di sini. Hubungi: admin@reloopmalang.com</div>
+        </section>
+
+        <div class="pagination" id="pagination"></div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- 📢 BANNER IKLAN PROMOSI (DUMMY) -->
+    <!-- ============================================ -->
+    <section class="promo-banners-section">
+        <h2 class="promo-banners-title">✨ Promosi Partner Kami</h2>
+        <div class="promo-banners-grid">
+            <!-- Banner 1 -->
+            <div class="promo-banner-card">
+                <div class="promo-banner-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <span style="color: white; font-size: 5rem;">🍕</span>
+                    <div class="promo-banner-badge">PROMO</div>
+                </div>
+                <div class="promo-banner-content">
+                    <div class="promo-banner-sponsor">Sponsor • Pizza Hut Malang</div>
+                    <div class="promo-banner-title">Diskon 50% untuk Mahasiswa!</div>
+                    <div class="promo-banner-desc">Tunjukkan kartu mahasiswa dan dapatkan diskon 50% setiap Senin-Jumat.</div>
+                    <a href="#" class="promo-banner-cta">Klaim Promo →</a>
+                </div>
+            </div>
+
+            <!-- Banner 2 -->
+            <div class="promo-banner-card">
+                <div class="promo-banner-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <span style="color: white; font-size: 5rem;">📱</span>
+                    <div class="promo-banner-badge">HOT DEAL</div>
+                </div>
+                <div class="promo-banner-content">
+                    <div class="promo-banner-sponsor">Sponsor • Erafone Malang</div>
+                    <div class="promo-banner-title">Gadget Bekas Garansi Resmi</div>
+                    <div class="promo-banner-desc">Trade-in gadget lama kamu dan dapat cashback hingga Rp 2 juta!</div>
+                    <a href="#" class="promo-banner-cta">Tukar Sekarang →</a>
+                </div>
+            </div>
+
+            <!-- Banner 3 -->
+            <div class="promo-banner-card">
+                <div class="promo-banner-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <span style="color: white; font-size: 5rem;">🎓</span>
+                    <div class="promo-banner-badge">NEW</div>
+                </div>
+                <div class="promo-banner-content">
+                    <div class="promo-banner-sponsor">Sponsor • Gramedia Malang</div>
+                    <div class="promo-banner-title">Buku Bekas Berkualitas</div>
+                    <div class="promo-banner-desc">Jual & beli buku bekas dengan harga terjangkau. Gratis ongkir area Malang!</div>
+                    <a href="#" class="promo-banner-cta">Lihat Koleksi →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 🦶 FOOTER OLX STYLE -->
+    <!-- ============================================ -->
+    <footer class="footer-olx">
+        <div class="footer-container-olx">
+            <!-- Main Footer Links -->
+            <div class="footer-main-olx">
+                <div class="footer-column-olx">
+                    <h3>Kategori Populer</h3>
+                    <ul class="footer-links-olx">
+                        <li><a href="#">Gadget & Elektronik</a></li>
+                        <li><a href="#">Kendaraan</a></li>
+                        <li><a href="#">Perabotan</a></li>
+                        <li><a href="#">Fashion</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column-olx">
+                    <h3>Pencarian Populer</h3>
+                    <ul class="footer-links-olx">
+                        <li><a href="#">Laptop Bekas</a></li>
+                        <li><a href="#">Sepeda MTB</a></li>
+                        <li><a href="#">Motor Bekas</a></li>
+                        <li><a href="#">Buku Kuliah</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column-olx">
+                    <h3>ReLoop Indonesia</h3>
+                    <ul class="footer-links-olx">
+                        <li><a href="#">ReLoop Karir</a></li>
+                        <li><a href="#">Partner UMKM</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column-olx">
+                    <h3>ReLoop</h3>
+                    <ul class="footer-links-olx">
+                        <li><a href="#">Pusat Bantuan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Tips Aman Transaksi</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="footer-social-olx">
+                <div class="footer-social-title-olx">Ikuti Kami</div>
+                <div class="social-icons-olx">
+                    <div class="social-icon-olx" title="Facebook">📘</div>
+                    <div class="social-icon-olx" title="Twitter">🐦</div>
+                    <div class="social-icon-olx" title="Instagram">📷</div>
+                    <div class="social-icon-olx" title="TikTok">🎵</div>
+                    <div class="social-icon-olx" title="YouTube">📺</div>
+                </div>
+            </div>
+
+            <!-- Download Apps -->
+            <div class="footer-apps-olx">
+                <div class="footer-apps-title-olx">Download ReLoop App</div>
+                <div class="app-badges-olx">
+                    <div class="app-badge-olx">
+                        <div class="app-badge-icon-olx">🤖</div>
+                        <div>
+                            <div class="app-badge-text-olx">Download on</div>
+                            <div class="app-badge-name-olx">Google Play</div>
+                        </div>
+                    </div>
+                    <div class="app-badge-olx">
+                        <div class="app-badge-icon-olx">🍎</div>
+                        <div>
+                            <div class="app-badge-text-olx">Download on</div>
+                            <div class="app-badge-name-olx">App Store</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="footer-bottom-olx">
+                <div class="footer-bottom-left-olx">
+                    <div class="footer-logo-olx">🔄 ReLoop</div>
+                    <div class="footer-copyright-olx">© 2024-2025 ReLoop Malang</div>
+                </div>
+                <div class="footer-bottom-right-olx">
+                    <a href="#">Bantuan</a>
+                    <a href="#">Peta Situs</a>
+                    <a href="#">From Mahasiswa to Mahasiswa</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* ============================================ */
+        /* 📢 BANNER IKLAN PROMOSI STYLES */
+        /* ============================================ */
+        .promo-banners-section {
+            max-width: 1200px;
+            margin: 4rem auto 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .promo-banners-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .promo-banners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .promo-banner-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .promo-banner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .promo-banner-image {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .promo-banner-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .promo-banner-content {
+            padding: 1.5rem;
+        }
+
+        .promo-banner-sponsor {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .promo-banner-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .promo-banner-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .promo-banner-cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #2b8fd9;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .promo-banner-cta:hover {
+            background: #1a73b8;
+        }
+
+        /* ============================================ */
+        /* 🦶 FOOTER OLX STYLE */
+        /* ============================================ */
+        .footer-olx {
+            background: #002f34;
+            color: white;
+            padding: 3rem 0 0 0;
+            margin-top: 4rem;
+        }
+
+        .footer-container-olx {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-main-olx {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-column-olx h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-links-olx {
+            list-style: none;
+        }
+
+        .footer-links-olx li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links-olx a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links-olx a:hover {
+            color: white;
+        }
+
+        .footer-social-olx {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-social-title-olx {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .social-icons-olx {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon-olx {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-icon-olx:hover {
+            background: #2b8fd9;
+            transform: translateY(-2px);
+        }
+
+        .footer-apps-olx {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-apps-title-olx {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .app-badges-olx {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .app-badge-olx {
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .app-badge-olx:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .app-badge-icon-olx {
+            font-size: 1.5rem;
+        }
+
+        .app-badge-text-olx {
+            font-size: 0.75rem;
+        }
+
+        .app-badge-name-olx {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .footer-bottom-olx {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom-left-olx {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo-olx {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-copyright-olx {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-bottom-right-olx {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom-right-olx a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .footer-bottom-right-olx a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .footer-main-olx {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-bottom-olx {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .promo-banners-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="script.js"></script>
+    <script src="chat-system.js"></script>
+    <script>
+        // Function untuk navigate ke boost page
+        function goToBoostPage() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('⚠️ Silakan login terlebih dahulu!');
+                document.getElementById('auth-link').click();
+                return;
+            }
+            window.location.href = 'boost-listing.html';
+        }
+    </script>
+</body>
+</html>

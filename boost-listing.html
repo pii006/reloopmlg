@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost Listing - ReLoop Malang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .boost-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .boost-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boost-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .boost-card.popular {
+            border: 3px solid #ffd700;
+        }
+
+        .boost-card.popular::before {
+            content: '⭐ PALING POPULER';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #000;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .boost-card.popular .card-content {
+            margin-top: 2rem;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-duration {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2b8fd9;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-price-per-day {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-benefits {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .benefit-icon {
+            color: #2b8fd9;
+            font-weight: 700;
+        }
+
+        .btn-select {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #2b8fd9 0%, #1a73b8 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-select:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(43, 143, 217, 0.4);
+        }
+
+        .features-section {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .comparison-section {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+        }
+
+        .comparison-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .check {
+            color: #2ecc71;
+            font-size: 1.2rem;
+        }
+
+        .cross {
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .boost-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-icon">🚀</div>
+            <h1 class="header-title">Boost Barang Kamu!</h1>
+            <p class="header-subtitle">Dapatkan pembeli lebih cepat dengan boost listing</p>
+        </div>
+
+        <!-- Boost Packages -->
+        <div class="boost-cards">
+            <!-- Package 1: Basic -->
+            <div class="boost-card">
+                <div class="card-content">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">Basic Boost</div>
+                    <div class="card-duration">1 Hari</div>
+                    <div class="card-price">Rp 3.000</div>
+                    <div class="card-price-per-day">Rp 3.000/hari</div>
+                    
+                    <div class="card-benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Tampil di urutan atas</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Badge "Boosted"</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>+100% views</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-select" onclick="selectPackage('basic', 3000, 1)">Pilih Paket</button>
+                </div>
+            </div>
+
+            <!-- Package 2: Popular (MOST POPULAR) -->
+            <div class="boost-card popular">
+                <div class="card-content">
+                    <div class="card-icon">🔥</div>
+                    <div class="card-title">Popular Boost</div>
+                    <div class="card-duration">3 Hari</div>
+                    <div class="card-price">Rp 7.500</div>
+                    <div class="card-price-per-day">Rp 2.500/hari</div>
+                    
+                    <div class="card-benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Semua fitur Basic</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>+100% views</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Hemat 17%</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-select" onclick="selectPackage('popular', 7500, 3)">Pilih Paket</button>
+                </div>
+            </div>
+
+            <!-- Package 3: Premium -->
+            <div class="boost-card">
+                <div class="card-content">
+                    <div class="card-icon">💎</div>
+                    <div class="card-title">Premium Boost</div>
+                    <div class="card-duration">7 Hari</div>
+                    <div class="card-price">Rp 15.000</div>
+                    <div class="card-price-per-day">Rp 2.142/hari</div>
+                    
+                    <div class="card-benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Semua fitur Popular</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>+100% views</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Hemat 29%</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>Priority support</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-select" onclick="selectPackage('premium', 15000, 7)">Pilih Paket</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2 class="features-title">Kenapa Harus Boost Listing?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">👀</div>
+                    <div class="feature-title">Lebih Banyak Dilihat</div>
+                    <div class="feature-desc">Produk kamu muncul di urutan teratas</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Lebih Cepat Laku</div>
+                    <div class="feature-desc">Rata-rata 3× lebih cepat sold</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Target Audience</div>
+                    <div class="feature-desc">Menjangkau buyer yang tepat</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-title">ROI Tinggi</div>
+                    <div class="feature-desc">Investasi kecil, return besar</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-section">
+            <h2 class="comparison-title">Perbandingan: Boost vs Tidak Boost</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Fitur</th>
+                        <th>Tanpa Boost</th>
+                        <th>Dengan Boost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Views per hari</td>
+                        <td>~10-20 views</td>
+                        <td><strong>~100-200 views</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Posisi di listing</td>
+                        <td>Acak / di bawah</td>
+                        <td><strong>Urutan teratas</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Badge khusus</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span> Badge "Boosted"</td>
+                    </tr>
+                    <tr>
+                        <td>Waktu terjual</td>
+                        <td>7-14 hari</td>
+                        <td><strong>2-5 hari</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Chat dari buyer</td>
+                        <td>1-3 chat</td>
+                        <td><strong>10-20 chat</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function selectPackage(packageName, price, days) {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('⚠️ Silakan login terlebih dahulu untuk boost listing!');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Store selected package
+            const packageData = {
+                name: packageName,
+                price: price,
+                days: days,
+                selectedAt: new Date().toISOString()
+            };
+
+            localStorage.setItem('selectedBoostPackage', JSON.stringify(packageData));
+
+            // Show confirmation
+            if (confirm(`Konfirmasi Boost Listing:\n\nPaket: ${packageName.toUpperCase()}\nDurasi: ${days} hari\nHarga: Rp ${price.toLocaleString('id-ID')}\n\nLanjutkan ke pembayaran?`)) {
+                // TODO: Redirect to payment page
+                alert('🚀 Boost akan diaktifkan setelah pembayaran dikonfirmasi!\n\nUntuk demo, boost langsung aktif.');
+                
+                // For demo: redirect back to homepage
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Add back button functionality
+        window.addEventListener('DOMContentLoaded', function() {
+            // Add back button if needed
+            const header = document.querySelector('.header');
+            const backBtn = document.createElement('button');
+            backBtn.innerHTML = '← Kembali';
+            backBtn.style.cssText = 'position: absolute; top: 2rem; left: 2rem; background: rgba(255,255,255,0.2); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;';
+            backBtn.onclick = () => window.location.href = 'index.html';
+            document.body.appendChild(backBtn);
+        });
+    </script>
+</body>
+</html>
